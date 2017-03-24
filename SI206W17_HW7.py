@@ -56,9 +56,23 @@ except:
 # Your function must cache data it retrieves and rely on a cache file!
 # Note that this is a lot like work you have done already in class (but, depending upon what you did previously, may not be EXACTLY the same, so be careful your code does exactly what you want here).
 
+def get_user_tweets(user_handle):
+    tweets = []
 
+    if user_handle in CACHE_DICTION:
+        response = CACHE_DICTION[user_handle]
+    else:
+        response = api.user_timeline(user_handle)
+        CACHE_DICTION[user_handle] = response
 
+        cache_file = open(CACHE_FNAME, 'w')
+        cache_file.write(json.dumps(CACHE_DICTION))
+        cache_file.close()
 
+    for item in response:
+        tweets.append(item)
+
+    return tweets
 
 # Write code to create/build a connection to a database: tweets.db,
 # And then load all of those tweets you got from Twitter into a database table called Tweets, with the following columns in each row:
