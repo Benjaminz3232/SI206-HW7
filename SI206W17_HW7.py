@@ -134,18 +134,22 @@ conn.commit()
 
 
 # Select from the database all of the TIMES the tweets you collected were posted and fetch all the tuples that contain them in to the variable tweet_posted_times.
-
+selectTimesStatement = 'SELECT time_posted FROM Tweets'
+cur.execute(selectTimesStatement)
+tweet_posted_times = cur.fetchall()
 
 # Select all of the tweets (the full rows/tuples of information) that have been retweeted MORE than 2 times, and fetch them into the variable more_than_2_rts.
-
-
+selectRetweetedStatement = 'SELECT * FROM Tweets WHERE retweets > 2'
+cur.execute(selectRetweetedStatement)
+more_than_2_rts = cur.fetchall()
 
 # Select all of the TEXT values of the tweets that are retweets of another account (i.e. have "RT" at the beginning of the tweet text). Save the FIRST ONE from that group of text values in the variable first_rt. Note that first_rt should contain a single string value, not a tuple.
-
-
+selectRetweetsStatement = 'SELECT tweet_text FROM Tweets WHERE tweet_text LIKE "RT%"'
+cur.execute(selectRetweetsStatement)
+first_rt = cur.fetchone()[0]
 
 # Finally, done with database stuff for a bit: write a line of code to close the cursor to the database.
-
+conn.close()
 
 
 ## [PART 3] - Processing data
