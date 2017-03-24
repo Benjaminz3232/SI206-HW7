@@ -166,8 +166,12 @@ conn.close()
 
 # If you want to challenge yourself here -- this function definition (what goes under the def statement) CAN be written in one line! Definitely, definitely fine to write it with multiple lines, too, which will be much easier and clearer.
 
-
-
+def get_twitter_users(string):
+    results = re.findall("@[A-z0-9_]*", string)
+    new_results = []
+    for result in results:
+        new_results.append(result[1:])
+    return set(new_results)
 
 
 #########
