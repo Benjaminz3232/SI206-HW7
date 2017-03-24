@@ -86,7 +86,8 @@ def get_user_tweets(user_handle):
 # Below we have provided interim outline suggestions for what to do, sequentially, in comments.
 
 # Make a connection to a new database tweets.db, and create a variable to hold the database cursor.
-
+conn = sqlite3.connect('tweets.db')
+cur = conn.cursor()
 
 # Write code to drop the Tweets table if it exists, and create the table (so you can run the program over and over), with the correct (4) column names and appropriate types for each.
 # HINT: Remember that the time_posted column should be the TIMESTAMP data type!
