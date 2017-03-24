@@ -91,22 +91,36 @@ cur = conn.cursor()
 
 # Write code to drop the Tweets table if it exists, and create the table (so you can run the program over and over), with the correct (4) column names and appropriate types for each.
 # HINT: Remember that the time_posted column should be the TIMESTAMP data type!
-
+dropStatement = 'DROP TABLE IF EXISTS Tweets'
+cur.execute(dropStatement)
+createStatement = 'CREATE TABLE Tweets '
+createStatement += '(tweet_id INTEGER PRIMARY KEY, '
+createStatement += 'author TEXT, '
+createStatement += 'time_posted TIMESTAMP, '
+createStatement += 'tweet_text TEXT, '
+createStatement += 'retweets INTEGER)'
+cur.execute(createStatement)
 
 # Invoke the function you defined above to get a list that represents a bunch of tweets from the UMSI timeline. Save those tweets in a variable called umsi_tweets.
-
-
+umsi_tweets = get_user_tweets("umsi")
 
 
 # Use a for loop, the cursor you defined above to execute INSERT statements, that insert the data from each of the tweets in umsi_tweets into the correct columns in each row of the Tweets database table.
 
 # (You should do nested data investigation on the umsi_tweets value to figure out how to pull out the data correctly!)
-
-
+for tweet in umsi_tweets:
+    info = []
+    insertStatement = 'INSERT INTO Tweets VALUES (?, ?, ?, ?, ?)'
+    info.append(tweet["id"])
+    info.append(tweet["user"]["screen_name"])
+    info.append(tweet["created_at"])
+    info.append(tweet["text"])
+    info.append(tweet["retweet_count"])
+    cur.execute(insertStatement, info)
 
 
 # Use the database connection to commit the changes to the database
-
+conn.commit()
 
 
 # You can check out whether it worked in the SQLite browser! (And with the tests.)
