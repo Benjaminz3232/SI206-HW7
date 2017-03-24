@@ -8,7 +8,8 @@ import tweepy
 import twitter_info # still need this in the same directory, filled out
 
 ## Make sure to comment with:
-# Your name:
+# Your name: Benjamin Zeffer
+# Section: Thursday 7-8pm
 # The names of any people you worked with for this assignment:
 
 # ******** #
